@@ -4,20 +4,20 @@ import { Link } from "react-router-dom";
 
 const endpoint = "http://localhost:8000/api";
 
-const ShowProducts = () => {
-  const [products, setProducts] = useState([]);
+const ShowRestaurants = () => {
+  const [restaurants, setRestaurants] = useState([]);
   useEffect(() => {
-    getAllProducts();
+    getAllRestaurants();
   }, []);
 
-  const getAllProducts = async () => {
-    const response = await axios.get(`${endpoint}/products`);
-    setProducts(response.data);
+  const getAllRestaurants = async () => {
+    const response = await axios.get(`${endpoint}/restaurants`);
+    setRestaurants(response.data);
   };
 
-  const deleteProduct = async (id) => {
-    await axios.delete(`${endpoint}/product/${id}`);
-    getAllProducts();
+  const deleteRestaurant = async (id) => {
+    await axios.delete(`${endpoint}/restaurant/${id}`);
+    getAllRestaurants();
   };
 
   return (
@@ -25,37 +25,37 @@ const ShowProducts = () => {
       <h1 className="text-center mt-5">Admin dashboard</h1>
       <div className="mt-5">
         <Link to="/create" className="btn bg-dark btn-lg mt-2 mb-2 text-white">
-          Add Product
+          Add Restaurant
         </Link>
       </div>
 
       <table className="table mt-5 mb-5">
         <thead>
           <tr>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Stock</th>
+            <th>Tilte</th>
+            <th>Code</th>
+            <th>Adress</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td> {product.description} </td>
-              <td> {product.price} </td>
-              <td> {product.stock} </td>
+          {restaurants.map((restaurant) => (
+            <tr key={restaurant.id}>
+              <td> {restaurant.title} </td>
+              <td> {restaurant.code} </td>
+              <td> {restaurant.adress} </td>
               <td>
-                <Link to={`/view/${product}`} className="btn btn-info">
+                <Link to={`/view/${restaurant}`} className="btn btn-info">
                   View
                 </Link>
                 <Link
-                  to={`/edit/${product.id}`}
+                  to={`/edit/${restaurant.id}`}
                   className="btn btn-success mx-2"
                 >
                   Edit
                 </Link>
                 <button
-                  onClick={() => deleteProduct(product.id)}
+                  onClick={() => deleteRestaurant(restaurant.id)}
                   className="btn btn-danger"
                 >
                   Delete
@@ -69,4 +69,4 @@ const ShowProducts = () => {
   );
 };
 
-export default ShowProducts;
+export default ShowRestaurants;

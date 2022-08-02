@@ -2,52 +2,52 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const endpoint = "http://localhost:8000/api/product";
+const endpoint = "http://localhost:8000/api/restaurant";
 
-const CreateProduct = () => {
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
+const CreateRestaurant = () => {
+  const [title, setTitle] = useState("");
+  const [code, setCode] = useState(0);
+  const [adress, setAdress] = useState("");
   const navigate = useNavigate();
 
   const store = async (e) => {
     e.preventDefault();
     await axios.post(endpoint, {
-      description: description,
-      price: price,
-      stock: stock,
+      title: title,
+      code: code,
+      adress: adress,
     });
     navigate("/");
   };
 
   return (
     <div>
-      <h3 className="mt-5 text-center">Create Product</h3>
+      <h3 className="mt-5 text-center">Create Restaurant</h3>
       <form onSubmit={store}>
         <div className="mb-3 mt-5">
-          <label className="form-label">Description</label>
+          <label className="form-label">Tilte</label>
           <input
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             type="text"
             className="form-control"
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Price</label>
+          <label className="form-label">Code</label>
           <input
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
             type="number"
             className="form-control"
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Stock</label>
+          <label className="form-label">Adress</label>
           <input
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-            type="number"
+            value={adress}
+            onChange={(e) => setAdress(e.target.value)}
+            type="text"
             className="form-control"
           />
         </div>
@@ -59,4 +59,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default CreateRestaurant;
